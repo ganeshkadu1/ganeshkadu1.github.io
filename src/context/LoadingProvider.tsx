@@ -37,7 +37,11 @@ export const LoadingProvider = ({ children }: PropsWithChildren) => {
 export const useLoading = () => {
   const context = useContext(LoadingContext);
   if (!context) {
-    throw new Error("useLoading must be used within a LoadingProvider");
+    return {
+      isLoading: false,
+      setIsLoading: (_state: boolean) => {},
+      setLoading: (_percent: number) => {},
+    };
   }
   return context;
 };
