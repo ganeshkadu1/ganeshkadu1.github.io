@@ -11,6 +11,7 @@ import Work from "./Work";
 import setSplitText from "./utils/splitText";
 
 import TechStack from "./TechStack";
+import MobileTechStack from "./MobileTechStack";
 
 const MainContainer = ({ children }: PropsWithChildren) => {
   const [isDesktopView, setIsDesktopView] = useState<boolean>(
@@ -43,7 +44,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
             <WhatIDo />
             <Career />
             <Work />
-            {isDesktopView && <TechStack />}
+            {isDesktopView ? <TechStack /> : <MobileTechStack />}
             <Contact />
           </div>
         </div>

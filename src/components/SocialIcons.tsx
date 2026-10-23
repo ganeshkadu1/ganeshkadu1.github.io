@@ -71,7 +71,7 @@ const SocialIcons = () => {
         </span>
         <span>
           <a
-            href="https://www.linkedin.com/in/ganesh-kadu"
+            href="https://www.linkedin.com/in/ganesh-kadu-943a90152"
             target="_blank"
             rel="noopener noreferrer"
             title="LinkedIn"

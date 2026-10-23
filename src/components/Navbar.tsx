@@ -1,14 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
+import { MdMenu, MdClose } from "react-icons/md";
 import "./styles/Navbar.css";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 export let smoother: ScrollSmoother;
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   useEffect(() => {
     smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
@@ -24,7 +27,7 @@ const Navbar = () => {
     smoother.paused(true);
     ScrollTrigger.refresh();
 
-    let links = document.querySelectorAll(".header ul a");
+    let links = document.querySelectorAll(".header ul.desktop-nav a");
     links.forEach((elem) => {
       let element = elem as HTMLAnchorElement;
       element.addEventListener("click", (e) => {
@@ -40,6 +43,15 @@ const Navbar = () => {
       ScrollSmoother.refresh(true);
     });
   }, []);
+
+  const handleMobileNavClick = (targetId: string) => {
+    setMenuOpen(false);
+    const element = document.querySelector(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <div className="header">
@@ -53,7 +65,7 @@ const Navbar = () => {
         >
           Contact.ganeshkadu@gmail.com
         </a>
-        <ul>
+        <ul className="desktop-nav">
           <li>
             <a data-href="#about" href="#about">
               <HoverLinks text="ABOUT" />
@@ -75,6 +87,82 @@ const Navbar = () => {
             </a>
           </li>
         </ul>
+
+        <button
+          className="mobile-nav-toggle"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation menu"
+          data-cursor="disable"
+        >
+          {menuOpen ? <MdClose /> : <MdMenu />}
+        </button>
+      </div>
+
+      <div className={`mobile-nav-menu ${menuOpen ? "open" : ""}`}>
+        <ul className="mobile-nav-links">
+          <li>
+            <a
+              href="#about"
+              onClick={(e) => {
+                e.preventDefault();
+                handleMobileNavClick("#about");
+              }}
+            >
+              ABOUT
+            </a>
+          </li>
+          <li>
+            <a
+              href="#career"
+              onClick={(e) => {
+                e.preventDefault();
+                handleMobileNavClick("#career");
+              }}
+            >
+              EXPERIENCE
+            </a>
+          </li>
+          <li>
+            <a
+              href="#work"
+              onClick={(e) => {
+                e.preventDefault();
+                handleMobileNavClick("#work");
+              }}
+            >
+              WORK
+            </a>
+          </li>
+          <li>
+            <a
+              href="#skills"
+              onClick={(e) => {
+                e.preventDefault();
+                handleMobileNavClick("#skills");
+              }}
+            >
+              SKILLS
+            </a>
+          </li>
+          <li>
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                handleMobileNavClick("#contact");
+              }}
+            >
+              CONTACT
+            </a>
+          </li>
+        </ul>
+        <a
+          href="mailto:Contact.ganeshkadu@gmail.com"
+          className="mobile-nav-email"
+          onClick={() => setMenuOpen(false)}
+        >
+          Contact.ganeshkadu@gmail.com
+        </a>
       </div>
 
       <div className="landing-circle1"></div>
